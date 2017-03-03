@@ -15,8 +15,5 @@
         "type": "git",
         "url": "git://github.com/fmarcia/UglifyCSS.git"
     },
-    "main": "./index.js",
-    "bin": {
-        "uglifycss" : "./uglifycss"
-    }
+    "main": "./index.js"
 }

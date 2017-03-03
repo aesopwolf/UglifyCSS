@@ -26,7 +26,6 @@
 
 'use strict';
 
-var fs = require('fs');
 var path = require('path');
 
 var SEP = "/";
@@ -784,50 +783,7 @@ function processString(content, options) {
     return content;
 }
 
-// Uglify CSS files
-
-function processFiles(filenames, options) {
-
-    var nFiles = filenames.length,
-        uglies = [],
-        index,
-        filename,
-        content;
-
-    options = options || defaultOptions;
-
-    if (options.convertUrls) {
-        options.target = path.resolve(process.cwd(), options.convertUrls).split(PATH_SEP);
-    }
-
-    // process files
-    for (index = 0; index < nFiles; index += 1) {
-        filename = filenames[index];
-        try {
-            content = fs.readFileSync(filename, 'utf8');
-            if (content.length) {
-                if (options.convertUrls) {
-                    options.source = path.resolve(process.cwd(), filename).split(PATH_SEP);
-                    options.source.pop();
-                }
-                uglies.push(processString(content, options));
-            }
-        } catch (e) {
-            if (options.debug) {
-                console.error('uglifycss: unable to process "' + filename + '"\n' + e.stack);
-            } else {
-                console.error('uglifycss: unable to process "' + filename + '"\n\t' + e);
-            }
-            process.exit(1);
-        }
-    }
-
-    // return concat'd results
-    return uglies.join('');
-}
-
 module.exports = {
     defaultOptions: defaultOptions,
     processString: processString,
-    processFiles: processFiles
 };

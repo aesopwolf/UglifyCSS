@@ -6,47 +6,17 @@ Be sure to submit valid CSS to UglifyCSS or you could get weird results.
 
 ### Installation
 
-For a command line usage:
-```sh
-$ npm install uglifycss -g
-```
-
-For API usage:
 ```sh
 $ npm install uglifycss
 ```
-
-From Github:
-```sh
-$ git clone git://github.com/fmarcia/UglifyCSS.git
-```
-
-### Command line
-
-```sh
-$ uglifycss [options] [filename] [...] > output
-```
-
-Options:
-
-* `--max-line-len n` adds a newline (approx.) every `n` characters; `0` means no newline and is the default value
-* `--expand-vars` expands variables; by default, `@variables` blocks are preserved and `var(x)`s are not expanded
-* `--ugly-comments` removes newlines within preserved comments; by default, newlines are preserved
-* `--cute-comments` preserves newlines within and around preserved comments
-* `--convert-urls d` converts relative urls using the `d` directory as location target
-* `--debug` prints full error stack on error
-* `--output f` puts the result in `f` file
-
-If no file name is specified, input is read from stdin.
 
 ### API
 
 2 functions are provided:
 
 * `processString( content, options )` to process a given string
-* `processFiles( [ filename1, ... ], options )` to process the concatenation of given files
 
-Options are identical to the command line:
+Options available:
 * `<int> maxLineLen` for `--max-line-len n`
 * `<bool> expandVars` for `--expand-vars`
 * `<bool> uglyComments` for `--ugly-comments`
@@ -54,15 +24,13 @@ Options are identical to the command line:
 * `<string> convertUrls` for `--convert-urls d`
 * `<bool> debug` for `--debug`
 
-Both functions return uglified css.
-
 #### Example
 
 ```js
 var uglifycss = require('uglifycss');
 
-var uglified = uglifycss.processFiles(
-    [ 'file1', 'file2' ],
+var uglified = uglifycss.processString(
+    'body { color: #000000 }',
     { maxLineLen: 500, expandVars: true }
 );
 
@@ -72,4 +40,3 @@ console.log(uglified);
 ### License
 
 UglifyCSS is MIT licensed.
-
